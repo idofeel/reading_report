@@ -1,0 +1,82 @@
+{
+"week":null,
+"borrowedTotal":9,	//p5-总共借阅了多少图书？ p1-共借阅书籍xx册
+"priceCount":260.0,		//p5-节省了多少钱
+"pageCount":6900,		//p5-帮我增加了多少页的人生厚度
+"thickCount":2300,		//p5-有多高
+"minDueDate":"20210209",
+"maxDueDate":"20211026",
+"fistBookInfo":{	//p2-2021年，我借阅的第一本书
+	"week":"二",		//不用
+	"page":null,	//不用
+	"borId":"TJPD00000007621",	//不用
+	"callNo":"I24 001190",	//索书号
+	"docNumber":"000998990",	//不用
+	"dueDate":"20211026",	//-30等于借阅日期
+	"returnedDate":"20211024",	//不用
+	"title":"收获 :文学双月刊",	//书名《》
+	"author":"程永新",	//作者
+	"isbn":"0583-1288",	//不用
+	"publisher":"收获文学杂志社",		//不用
+	"price":null,	//不用
+	"thick":"26",	//不用
+	"id":81,	//不用
+	"type":"I"},	//不用
+"lastBookInfo":{		//P2-我借阅的最后一本书
+	"week":"二",		//不用
+	"page":null,	//不用
+	"borId":"TJPD00000007621",	//不用
+	"callNo":"I24 001190",
+	"docNumber":"000998990",	//不用
+	"dueDate":"20210209",
+	"returnedDate":"20210205",	//不用
+	"title":"收获 :文学双月刊",	//书名《》
+	"author":"程永新",	//作者
+	"isbn":"0583-1288",	//不用
+	"publisher":"收获文学杂志社",	//不用
+	"price":null,	//不用
+	"thick":"26",	//不用
+	"id":89,	//不用
+	"type":"I"},	//不用
+"sumDay":"234",		//p3-累计借阅 p5-共陪伴了我多少天
+"borrowedDayTotal":4,	//p3-我到馆借阅
+"borrowedWeekList":[{	//p4-我在星期几借书最多？
+	"total":6,"name":"1"},
+	{"total":3,"name":"3"}],
+"returnWeekList":[{		//p4-我在星期几还书最多？
+	"total":3,"name":"4"},
+	{"total":2,"name":"3"},
+	{"total":2,"name":"6"},
+	{"total":2,"name":"1"}],
+"p7BookInfo":{
+	"week":"30"			//p7-这本书，我看了xx天
+	"borId":null
+	"callNo":"I24 001190"		//p7-索书号
+	"docNumber":null
+	"dueDate":"20211026"		//借阅日期（应该-30，换算成借阅日期）
+	"returnedDate":"20211024"
+	"title":"收获 :文学双月刊"		//p7-题名
+	"author":"程永新"		//p7-作者
+	"isbn":null
+	"publisher":null
+	"price":null
+	"thick":null
+	"page":null
+	"id":81
+	"type":null}
+"regNowDay":2446		//p1.5-Xxxx年x月x日，我们相遇
+"wechatNowDay":0		//p9-陪伴了我xxx天
+"printout":{"count":0		//p8
+"dueDate":null
+"broNum":"1005-1805"
+"formName":null
+"loanDate":null
+"bookNames":"读者"}		//p8-图书推荐书名
+
+"borId":"TJPD00000007621",
+"borName":null,
+"registrationDate":"20150614",	//P1.5-你我相遇，我们在一起度过了xxxx天
+"type":[	 	//p6-悦读取向
+	{"total":2,"name":"政治法律"},
+	{"total":1,"name":"经济"},
+	{"total":6,"name":"文学"}]}
