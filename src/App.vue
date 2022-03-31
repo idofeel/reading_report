@@ -84,16 +84,21 @@
               >年，我借阅的第一本书
             </h5>
             <h4>《{{ readData.fistBookInfo.title }}》</h4>
-            <p>作者：{{ readData.fistBookInfo.author }}</p>
-            <p>索书号：{{ readData.fistBookInfo.callNo }}</p>
+            <p>责任者：{{ readData.fistBookInfo.author }}</p>
+            <p>出版社：{{ readData.fistBookInfo.publisher }}</p>
+            <p>ISBN：{{ readData.fistBookInfo.isbn }}</p>
+
+            <!-- <p>索书号：{{ readData.fistBookInfo.callNo }}</p> -->
             <p>借阅日期: {{ readData.fistBookInfo.dueDate }}</p>
           </div>
 
           <div>
             <h5>我借阅的最后一本书</h5>
             <h4>《{{ readData.lastBookInfo.title }}》</h4>
-            <p>作者：{{ readData.lastBookInfo.author }}</p>
-            <p>索书号：{{ readData.lastBookInfo.callNo }}</p>
+            <p>责任者：{{ readData.lastBookInfo.author }}</p>
+            <p>出版社：{{ readData.fistBookInfo.publisher }}</p>
+            <p>ISBN：{{ readData.fistBookInfo.isbn }}</p>
+            <!-- <p>索书号：{{ readData.lastBookInfo.callNo }}</p> -->
             <p>借阅日期: {{ readData.lastBookInfo.dueDate }}</p>
           </div>
         </div>
@@ -176,7 +181,7 @@
           <p>从古到今跟你有同样烦恼</p>
           <p>并且同样在寻找答案的人有很多</p>
           <p>你并不孤单</p>
-          <p class="desc">其实你不孤单，你身旁有书有灯有未来</p>
+          <!-- <p class="desc">其实你不孤单，你身旁有书有灯有未来</p> -->
         </div>
       </div>
       <!--  -->
@@ -204,12 +209,10 @@
       <div class="section p8">
         <img :src="require('@/assets/logo.png')" class="logo" alt="" />
         <div class="content">
-          <h4>
-            图书推荐
-            <div>
-              <b>{{ readData.printout.bookNames }}</b>
-            </div>
-          </h4>
+          <h4 style="margin-bottom:30px">图书推荐</h4>
+          <div>
+            <b>{{ readData.printout.bookNames }}</b>
+          </div>
 
           <p class="desc">奇文共欣赏，疑义相与析。（陶渊明）</p>
         </div>
@@ -587,7 +590,10 @@ export default {
       }
     },
     showWeekBorrow(weekObj) {
-      this.chartOption.series[0].data = Object.values(weekObj);
+      const [sunday, ...list] = Object.values(weekObj);
+      if(sunday !== undefined)  list.push(sunday);
+      
+      this.chartOption.series[0].data = list;
       this.$refs.chartRef.chart.setOption(this.chartOption);
     },
     showPieChart(data) {
@@ -805,6 +811,7 @@ h5 {
 
 .p6 .content {
   background: rgba(255, 255, 255, 0.9);
+  padding: 40px 10px;
 }
 .p6 .dv-charts-container {
   height: 300px;
