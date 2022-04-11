@@ -6,8 +6,9 @@
       id="fullpage"
       @after-load="afterLoad"
     >
+      <!--p1 -->
       <div class="section p1">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content main">
           <dv-loading v-if="loading" class="loading">
             <span v-if="times === 30"
@@ -29,8 +30,9 @@
         </div>
       </div>
       <!--  -->
+      <!--p2 -->
       <div class="section p1_5">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <div>
             <b>{{ registrationDate }}</b> <span>我们相遇</span>
@@ -41,8 +43,9 @@
           <div class="desc">读书不觉已春深，一寸光阴一寸金（王贞白）</div>
         </div>
       </div>
-      <div class="section p3">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+      <!--p3 -->
+      <div class="section p3" v-if="showHistory">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <p>
             <b>{{ year }}</b
@@ -65,18 +68,27 @@
           </p>
         </div>
       </div>
-
-      <div class="section p4_1">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+      <div class="section p3" v-else>
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
-          <p>生活的一切不解与疑惑</p>
-          <p>都能在书中找到答案</p>
+          <p>
+            您在<b>{{ year }}</b
+            >年度未有借阅记录
+          </p>
         </div>
       </div>
+      <!--p4 -->
+      <div class="section p4_1">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
+        <!-- <div class="content">
+          <p>生活的一切不解与疑惑</p>
+          <p>都能在书中找到答案</p>
+        </div> -->
+      </div>
 
-      <!--  -->
-      <div class="section p2">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+      <!-- p5 -->
+      <div class="section p2" v-if="showHistory">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <div>
             <h5>
@@ -99,20 +111,22 @@
             <p>出版社：{{ readData.fistBookInfo.publisher }}</p>
             <p>ISBN：{{ readData.fistBookInfo.isbn }}</p>
             <!-- <p>索书号：{{ readData.lastBookInfo.callNo }}</p> -->
-            <p>借阅日期: {{ readData.lastBookInfo.dueDate }}</p>
+            <p>借阅日期： {{ readData.lastBookInfo.dueDate }}</p>
           </div>
         </div>
       </div>
+      <!-- p6 -->
       <div class="section p6_1">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
-        <div class="content">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
+        <!-- <div class="content">
           <p>一半诗意，一半烟火</p>
           <p>才是生活最美的样子</p>
-        </div>
+        </div> -->
       </div>
 
-      <div class="section p4">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+      <!-- p7 -->
+      <div class="section p4 barChart" v-if="showHistory">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <div class="title">
             <!-- <h4>看看我什么时间在图书馆呢？</h4> -->
@@ -122,20 +136,22 @@
               >借书最多
             </p>
           </div>
-          <dv-charts ref="chartRef" :option="chartOption" />
+          <!-- chartchart  -->
+          <!-- <dv-charts ref="chartRef" :option="chartOption" /> -->
+          <div ref="chartRef" class="chart_ref"></div>
         </div>
       </div>
-
+      <!-- p8 -->
       <div class="section p4_2">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <p>即使读书不会给你带来直接的财富</p>
           <p>但是可以使你的内心富足</p>
         </div>
       </div>
-
-      <div class="section p5">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+      <!-- p9 -->
+      <div class="section p5 pieChart" v-if="showHistory">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <p>
             <b>{{ year }}</b> 年，这些充满知识的书籍
@@ -162,32 +178,33 @@
           <p class="desc">腹有诗书气自华，你就是你读的书</p>
         </div>
       </div>
-      <div class="section p6">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+      <!-- p10 -->
+      <div class="section p6" v-if="showHistory">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <h4>我的阅读取向</h4>
-          <dv-charts ref="pieChartRef" :option="pieOption" />
-
+          <!-- chartchart  -->
+          <!-- <dv-charts ref="pieChartRef" :option="pieOption" /> -->
+          <div class="chart_ref" ref="pieChartRef"></div>
           <p class="desc">
             一本书像一艘船，带领我们从狭隘的地方，驶向生活的无限广阔的海洋。（海伦·凯勒）
           </p>
         </div>
       </div>
-
+      <!-- p11 -->
       <div class="section p11_1">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
-        <div class="content">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
+        <!-- <div class="content">
           <p>一本书可以让你知道</p>
           <p>从古到今跟你有同样烦恼</p>
           <p>并且同样在寻找答案的人有很多</p>
           <p>你并不孤单</p>
-          <!-- <p class="desc">其实你不孤单，你身旁有书有灯有未来</p> -->
-        </div>
+        </div> -->
+        <!-- <p class="desc">其实你不孤单，你身旁有书有灯有未来</p> -->
       </div>
-      <!--  -->
-
-      <div class="section p7">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+      <!-- p12 -->
+      <div class="section p7" v-if="showHistory">
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <!-- 悦读趣味：我是一个XX家 -->
           <p>
@@ -197,8 +214,11 @@
           <h4>
             <b>{{ readData.p7BookInfo.title }}</b>
           </h4>
-          <p>作者：{{ readData.p7BookInfo.author }}</p>
-          <p>索书号：{{ readData.p7BookInfo.callNo }}</p>
+          <!-- <p>作者：{{ readData.p7BookInfo.author }}</p> -->
+          <!-- <p>索书号：{{ readData.p7BookInfo.callNo }}</p> -->
+          <p>责任者：{{ readData.p7BookInfo.author }}</p>
+          <p>出版社：{{ readData.p7BookInfo.publisher }}</p>
+          <p>ISBN：{{ readData.p7BookInfo.isbn }}</p>
           <p>借阅日期:{{ readData.p7BookInfo.dueDate }}</p>
           <p>
             这本书，我看了<b>{{ readData.p7BookInfo.week }}</b
@@ -206,10 +226,11 @@
           </p>
         </div>
       </div>
+      <!-- p13 -->
       <div class="section p8">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
-          <h4 style="margin-bottom:30px">图书推荐</h4>
+          <h4 style="margin-bottom: 30px">图书推荐</h4>
           <div>
             <b>{{ readData.printout.bookNames }}</b>
           </div>
@@ -217,18 +238,22 @@
           <p class="desc">奇文共欣赏，疑义相与析。（陶渊明）</p>
         </div>
       </div>
+      <!-- p14 -->
       <div class="section p9">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <p>
-            <b>{{ year }}</b
-            >年，天津图书馆微信服务号，陪伴了我<b>{{ readData.wechatNowDay }}</b
-            >天
+            <b>{{ year }}</b>
+            年，天津图书馆微信服务号，陪伴了我
+            <b>{{ readData.wechatNowDay }}</b>
+            <!-- <b>191</b> -->天
           </p>
+          <br />
           <div>
-            为我推送:
+            同时，也为全馆的读者推送了:
             <p>
-              <b>{{ readData.tipNotice }}</b>
+              <!-- <b>{{ readData.tipNotice }}</b> -->
+              <b>76584</b>
               次图书到期提醒
             </p>
             <p>
@@ -250,10 +275,10 @@
           </div>
         </div>
       </div>
+      <!-- p15 -->
       <div class="section p10">
-        <img :src="require('@/assets/logo.png')" class="logo" alt="" />
-        <div class="content">
-          <!-- <p>无论你是年老还是年轻</p>
+        <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
+        <!-- <p>无论你是年老还是年轻</p>
           <p>无论你是贫穷还是富有</p>
           <p>无论你是患病还是健康</p>
           <p style="margin-top: 20px">都能享受阅读带来的乐趣</p>
@@ -261,6 +286,8 @@
             都能尊重和感谢为人类文明做出巨大贡献的文学、文化、科学思想大师们，
             都能保护知识产权。
           </p> -->
+        <!-- <div class="content">
+        
           <p>要么读书</p>
           <p>要么旅行</p>
           <p>心和身体总要有一个在路上</p>
@@ -268,7 +295,7 @@
           <p style="text-align: right; margin-top: 20px">
             致{{ year * 1 + 1 }}年4月23日世界读书日
           </p>
-        </div>
+        </div> -->
       </div>
     </full-page>
 
@@ -402,26 +429,27 @@ export default {
       chartOption,
       pieOption,
       weekNames: [
+        "星期日",
         "星期一",
         "星期二",
         "星期三",
         "星期四",
         "星期五",
         "星期六",
-        "星期日",
       ],
       params: {
         borId: "",
         beginDate: "",
         endDate: "",
       },
-      // weekChart: null,
     };
   },
   computed: {
     registrationDate() {
       const date = String(this.readData.registrationDate);
-      return `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(6)}日`;
+      return date
+        ? `${date.slice(0, 4)}年${date.slice(4, 6)}月${date.slice(6)}日`
+        : "";
     },
     week() {
       if (!this.readData.returnWeekList || !this.readData.returnWeekList.length)
@@ -433,10 +461,19 @@ export default {
       return this.weekNames[maxReadDay];
     },
     year() {
-      return this.params.beginDate.slice(0, 4);
+      return this.params.beginDate ? this.params.beginDate.slice(0, 4) : "";
+    },
+    showHistory() {
+      const { borrowedDayTotal } = this.readData;
+
+      return borrowedDayTotal && borrowedDayTotal > 0;
     },
   },
   mounted() {
+    window.addEventListener("resize", () => {
+      this.$refs.fullpage.api.reBuild();
+    });
+
     this.$refs.fullpage.api.setAllowScrolling(false);
 
     // 判断是否等咯
@@ -458,10 +495,12 @@ export default {
       this.getData();
     }
     document.title = `天津图书馆${this.year}年阅读账单`;
-    // this.weekChart = this.initChart('chartRef')
     // http.get('/wechat/historyjob!history.action?borId=TJPD00000007621&beginDate=20210101&endDate=20211231')
   },
   methods: {
+    reBuild() {
+      this.$refs.fullpage.api.reBuild();
+    },
     countdown() {
       this.timer = setInterval(() => {
         this.times--;
@@ -498,18 +537,29 @@ export default {
       this.$refs.fullpage.api.moveSectionDown();
     },
     afterLoad(old, current) {
-      if (current.index === 4) {
+      console.log(old);
+      if (current.item.className.includes("barChart")) {
         this.showWeekBorrow(this.readData.weekObj);
       }
-      if (current.index === 6) {
-        this.showPieChart(
-          this.readData.type.map((i) => {
-            return {
-              name: i.name,
-              value: i.total,
-            };
-          })
-        );
+      if (current.item.className.includes("pieChart")) {
+        const sortData = this.readData.type.sort((a, b) => b.total - a.total);
+        const topFive = sortData.reduce((total, item) => {
+          if (total.length < 5) {
+            total.push({
+              name: item.name,
+              value: item.total,
+            });
+          } else {
+            if (total[5]) {
+              total[5].value += item.total;
+            } else {
+              total[5] = { name: "其他", value: item.total };
+            }
+          }
+          return total;
+        }, []);
+        console.log(JSON.stringify(topFive));
+        this.showPieChart(topFive);
       }
     },
     queryParams(data, isPrefix) {
@@ -543,62 +593,89 @@ export default {
       const timer = setTimeout(() => {
         this.countdown();
       }, 5000);
-      const res = await fetch(
-        baseUrl + "/wechat/historyjob!history.action?" + search,
-        {
-          method: "GET", //
-          mode: "cors",
+      try {
+        const res = await fetch(
+          baseUrl + "/wechat/historyjob!history.action?" + search,
+          {
+            method: "GET", //
+            mode: "cors",
+          }
+        );
+        clearTimeout(timer);
+        if (res.status === 200) {
+          const data = await res.json();
+          //  fistBookInfo: {},
+          // lastBookInfo: {},
+          // p7BookInfo: {},
+          // printout: {},
+          // // 周数据
+          // weekObj: {},
+          data.fistBookInfo = data.fistBookInfo || {};
+          data.lastBookInfo = data.lastBookInfo || {};
+          data.p7BookInfo = data.p7BookInfo || {};
+          data.printout = data.printout || {};
+          this.readData = data;
+
+          // 修改图表数据
+          const weekObj = {
+            1: 0,
+            2: 0,
+            3: 0,
+            4: 0,
+            5: 0,
+            6: 0,
+            7: 0,
+          };
+          data.returnWeekList.forEach((i) => (weekObj[i.name] = i.total));
+
+          this.readData.weekObj = weekObj;
+
+          this.loading = false;
+          // this.reBuild()
+          console.log(this.$refs.fullpage);
+
+          this.$nextTick(() => {
+            this.$refs.fullpage.api.destroy();
+            this.$refs.fullpage.build();
+            // this.$refs.fullpage.api.setAllowScrolling(true);
+          });
+          // this.showWeekBorrow(data.returnWeekList);
+
+          console.log(this.readData);
+        } else {
+          this.$toast.center("获取数据失败，绑定后重试");
+          this.$modal.show("login");
         }
-      );
-      clearTimeout(timer);
-      if (res.status === 200) {
-        const data = await res.json();
-        //  fistBookInfo: {},
-        // lastBookInfo: {},
-        // p7BookInfo: {},
-        // printout: {},
-        // // 周数据
-        // weekObj: {},
-        data.fistBookInfo = data.fistBookInfo || {};
-        data.lastBookInfo = data.lastBookInfo || {};
-        data.p7BookInfo = data.p7BookInfo || {};
-        data.printout = data.printout || {};
-        this.readData = data;
-
-        // 修改图表数据
-        const weekObj = {
-          1: 0,
-          2: 0,
-          3: 0,
-          4: 0,
-          5: 0,
-          6: 0,
-          7: 0,
-        };
-        data.returnWeekList.forEach((i) => (weekObj[i.name] = i.total));
-
-        this.readData.weekObj = weekObj;
-
-        this.loading = false;
-        this.$refs.fullpage.api.setAllowScrolling(true);
-        // this.showWeekBorrow(data.returnWeekList);
-
-        console.log(this.readData);
-      } else {
-        this.$toast.center("获取数据失败，绑定后重试");
+      } catch (error) {
+        this.$toast.center("获取数据失败，请登录后重试");
         this.$modal.show("login");
       }
     },
     showWeekBorrow(weekObj) {
       const [sunday, ...list] = Object.values(weekObj);
-      if(sunday !== undefined)  list.push(sunday);
-      
+      if (sunday !== undefined) list.push(sunday);
+
       this.chartOption.series[0].data = list;
-      this.$refs.chartRef.chart.setOption(this.chartOption);
+
+      const chart = this.initEchart("chartRef");
+      // this.$refs.chartRef.
+      chart.setOption(this.chartOption);
+      console.log(this.chartOption);
     },
     showPieChart(data) {
+      if (data.length === 0) return;
       this.pieOption.series[0].data = data;
-      this.$refs.pieChartRef.chart.setOption(this.pieOption);
+
+      const chart = this.initEchart("pieChartRef");
+      // this.$refs.chartRef.
+      chart.setOption(this.pieOption);
+      // this.$refs.pieChartRef.chart.setOption(this.pieOption);
+    },
+    initEchart(refsName) {
+      if (!refsName) return;
+      const myEchart = this.$echarts.init(this.$refs[refsName], null);
+      window.addEventListener("resize", myEchart.resize);
+      return myEchart;
     },
   },
 };
@@ -636,6 +713,7 @@ button {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  height: 100%;
 }
 .section {
   display: flex;
@@ -643,6 +721,7 @@ button {
   background-size: 100% 100%;
   background-size: cover;
   position: relative;
+  flex: 1;
 }
 h3 {
   font-size: 20px;
@@ -658,58 +737,69 @@ h5 {
 }
 
 .p1 {
-  background-image: url("./assets/1.jpg");
+  background-image: url("./assets/p1.jpeg");
 }
 .p1_5 {
-  background-image: url("./assets/2.jpg");
-}
-.p2 {
-  background-image: url("./assets/3.jpg");
+  background-image: url("./assets/p2.jpeg");
 }
 .p3 {
-  background-image: url("./assets/4.jpg");
-}
-.p4 {
-  background-image: url("./assets/5.jpg");
+  background-image: url("./assets/p3.jpeg");
 }
 .p4_1 {
-  background-image: url("./assets/4_1.jpg");
+  background-image: url("./assets/p4.jpeg");
 }
+
+.p2 {
+  background-image: url("./assets/p5.jpeg");
+}
+
+.p6_1 {
+  background-image: url("./assets/p6.jpeg");
+}
+
+.p4 {
+  background-image: url("./assets/p7.jpeg");
+}
+
 .p4_2 {
-  background-image: url("./assets/4_2.jpg");
+  background-image: url("./assets/p8.jpeg");
 }
+
 .p5 {
-  background-image: url("./assets/6.jpg");
+  background-image: url("./assets/p9.jpeg");
 }
 .p6 {
-  background-image: url("./assets/7.jpg");
+  background-image: url("./assets/p10.jpeg");
 }
-.p6_1 {
-  background-image: url("./assets/p6_1.jpg");
+
+.p11_1 {
+  background-image: url("./assets/p11.jpeg");
 }
+
 .p7 {
-  background-image: url("./assets/8.jpg");
+  background-image: url("./assets/p12.jpeg");
 }
 .p8 {
-  background-image: url("./assets/9.jpg");
+  background-image: url("./assets/p13.jpeg");
 }
 .p9 {
-  background-image: url("./assets/10.jpg");
+  background-image: url("./assets/p14.jpeg");
 }
 .p10 {
+  background-image: url("./assets/p15.jpeg");
+}
+
+/* .p15_1 {
   background-image: url("./assets/p15_1.jpg");
-}
-.p11_1 {
-  background-image: url("./assets/p11_1.jpg");
-}
-.p15_1 {
-  background-image: url("./assets/p15_1.jpg");
-}
+} */
 
 .p1 .title {
   margin-top: 20px;
   text-align: right;
   color: #666;
+}
+.chart_ref {
+  height: 200px;
 }
 
 .open {
@@ -811,7 +901,14 @@ h5 {
 
 .p6 .content {
   background: rgba(255, 255, 255, 0.9);
+  padding: 0;
+  width: 95%;
+}
+
+.p6 h4,
+.p6 .desc {
   padding: 40px 10px;
+  margin: 0;
 }
 .p6 .dv-charts-container {
   height: 300px;

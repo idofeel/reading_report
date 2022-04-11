@@ -3,7 +3,7 @@ const pieOpt = {
     top: 0,
     left: 0,
     right: 0,
-    bottom: 30,
+    bottom: 0,
   },
   color: [
     "#f47b38",
@@ -39,19 +39,22 @@ const pieOpt = {
     {
       type: "pie",
       data: [{ name: "", value: 0 }],
-      radius: "70%",
+      radius: "60%",
+      startAngle: -Math.PI / 6,
       insideLabel: {
         show: true,
       },
-      outsideLabel: {
-        show: true,
-        labelLineEndLength: 0,
-        labelLineBendGap: 0,
-        style: {
-          fontSize: 14,
-        },
-      },
-      roseType: true,
+      avoidLabelOverlap: true,
+      // outsideLabel: {
+      //   show: true,
+      //   labelLineEndLength: 0,
+      //   labelLineBendGap: "10%",
+      //   avoidLabelOverlap: true,
+      //   style: {
+      //     fontSize: 14,
+      //   },
+      // },
+      // roseType: true,
     },
   ],
 };

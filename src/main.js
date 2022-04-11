@@ -7,6 +7,7 @@ import "fullpage.js/vendors/scrolloverflow";
 import VueFullPage from "vue-fullpage.js";
 import vmodal from "vue-js-modal";
 import Toast from "./components/toast/toast";
+import "./plugins/echartsUI";
 
 import "./components/toast/toast.css";
 

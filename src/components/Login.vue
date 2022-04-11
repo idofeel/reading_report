@@ -1,10 +1,14 @@
 <template>
   <div class="login_page">
-    <h4 class="title">读者绑定</h4>
+    <h4 class="title">{{ title }}</h4>
     <div class="login_form">
       <div class="login_form_item">
         <!-- <span>读者账号</span> -->
-        <input v-model="formData.borId" placeholder="请输入读者账号" />
+        <input
+          v-model="formData.borId"
+          placeholder="请输入读者账号"
+          @blur="resize"
+        />
       </div>
       <div class="login_form_item">
         <!-- <span>读者密码</span> -->
@@ -12,6 +16,7 @@
           type="password"
           v-model="formData.borPassword"
           placeholder="请输入读者密码"
+          @blur="resize"
         />
       </div>
     </div>
@@ -44,6 +49,7 @@ export default {
         borId: "",
         borPassword: "",
       },
+      title: "读者绑定",
     };
   },
   methods: {
@@ -71,6 +77,18 @@ export default {
       }
 
       return _result.length ? prefix + _result.join("&") : "";
+    },
+    resize() {
+      setTimeout(function () {
+        //手动触发窗口resize事件
+        if (document.createEvent) {
+          var event = document.createEvent("HTMLEvents");
+          event.initEvent("resize", true, true);
+          window.dispatchEvent(event);
+        } else if (document.createEventObject) {
+          window.fireEvent("onresize");
+        }
+      }, 100);
     },
     async onLogin() {
       if (!this.formData.borId) {
@@ -101,6 +119,8 @@ export default {
           }
         }
       } catch (error) {
+        console.log(error);
+        this.$toast.center("登录失败");
         //   error
       } finally {
         this.$loading.close();
