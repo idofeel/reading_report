@@ -2,7 +2,7 @@ import Vue from "vue";
 // 引入 echarts 核心模块，核心模块提供了 echarts 使用必须要的接口。
 import * as echarts from "echarts/core";
 // 引入各种图表，图表后缀都为 Chart
-import { BarChart, PieChart } from "echarts/charts"; //这里我引用两个类型的图表
+import { BarChart, PieChart, LineChart } from "echarts/charts"; //这里我引用两个类型的图表
 // import echarts from '@/utils/echartsUI';
 
 // 引入提示框，标题，直角坐标系等组件，组件后缀都为 Component
@@ -32,7 +32,7 @@ echarts.use([
   // 图表
   BarChart,
   PieChart,
-  // LineChart,
+  LineChart,
 ]);
 
 Vue.prototype.$echarts = echarts;

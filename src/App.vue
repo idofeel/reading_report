@@ -1,5 +1,22 @@
 <template>
-  <div id="app">
+  <div id="app" @touchend="handleAutoplay" @touchstart="handleAutoplay">
+    <div
+      class="music_icon"
+      :class="{ playing: !paused }"
+      @click.stop="togglePlay"
+    >
+      <svg viewBox="0 0 1024 1024" version="1.1">
+        <path
+          d="M512 960A448 448 0 1 1 802.133333 170.666667a42.666667 42.666667 0 0 1-55.466666 65.493333 362.666667 362.666667 0 1 0 112 170.666667l-226.346667 226.133333a170.666667 170.666667 0 1 1 44.16-164.906667l165.546667-167.04a42.666667 42.666667 0 0 1 37.333333-13.653333 42.666667 42.666667 0 0 1 32.426667 23.04A448 448 0 0 1 512 960z m0-533.333333a85.333333 85.333333 0 0 0-60.373333 145.706666 87.466667 87.466667 0 0 0 120.746666 0l2.133334-2.133333 1.066666-1.493333A85.333333 85.333333 0 0 0 512 426.666667z"
+          p-id="4760"
+        ></path>
+      </svg>
+    </div>
+
+    <!--  -->
+    <audio ref="video" class="video" controls autoplay @play="handlePlaying">
+      <source src="/bg.mp3" autoplay="autoplay" type="audio/mp3" />
+    </audio>
     <full-page
       ref="fullpage"
       :options="options"
@@ -9,24 +26,27 @@
       <!--p1 -->
       <div class="section p1">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
-        <div class="content main">
-          <dv-loading v-if="loading" class="loading">
-            <span v-if="times === 30"
-              >开启天津图书馆<b>{{ year }}</b
-              >年度个人阅读账单中...</span
-            >
-            <span v-else
-              >加载数据量较大，请您稍候，预计还需要{{ times }}秒</span
-            >
-          </dv-loading>
-          <div v-show="!loading">
-            <h4>
+        <div>
+          <div class="content main" v-if="loading">
+            <dv-loading class="loading">
+              <span v-if="times === 30">
+                <!-- 开启天津图书馆<b>{{ year }}</b
+                >年度个人阅读账单中...
+                 -->
+                专属您的阅读报告正在生成，请耐心等待……
+              </span>
+              <span v-else
+                >加载数据量较大，请您稍候，预计还需要{{ times }}秒</span
+              >
+            </dv-loading>
+          </div>
+
+          <!-- <h4>
               <b>{{ year }}</b
               >年度个人阅读账单
-            </h4>
-            <button @click="nexPage" class="open">开启账单</button>
-            <div class="title">天津图书馆</div>
-          </div>
+            </h4> -->
+          <button v-show="!loading" @click="nexPage" class="open">开启</button>
+          <!-- <div class="title">天津图书馆</div> -->
         </div>
       </div>
       <!--  -->
@@ -40,7 +60,7 @@
           <div class="line2">
             <span>在一起度过了</span> <b>{{ readData.regNowDay }}天</b>
           </div>
-          <div class="desc">读书不觉已春深，一寸光阴一寸金（王贞白）</div>
+          <!-- <div class="desc">读书不觉已春深，一寸光阴一寸金（王贞白）</div> -->
         </div>
       </div>
       <!--p3 -->
@@ -49,7 +69,7 @@
         <div class="content">
           <p>
             <b>{{ year }}</b
-            >年，我在天津图书馆
+            >年我在天津图书馆
           </p>
           <p>
             到馆借阅 <b>{{ readData.borrowedDayTotal }} </b>次
@@ -93,7 +113,7 @@
           <div>
             <h5>
               <b>{{ year }}</b
-              >年，我借阅的第一本书
+              >年我借阅的第一本书
             </h5>
             <h4>《{{ readData.fistBookInfo.title }}》</h4>
             <p>责任者：{{ readData.fistBookInfo.author }}</p>
@@ -105,11 +125,14 @@
           </div>
 
           <div>
-            <h5>我借阅的最后一本书</h5>
+            <h5>
+              <b>{{ year }}</b
+              >年我借阅的最后一本书
+            </h5>
             <h4>《{{ readData.lastBookInfo.title }}》</h4>
             <p>责任者：{{ readData.lastBookInfo.author }}</p>
-            <p>出版社：{{ readData.fistBookInfo.publisher }}</p>
-            <p>ISBN：{{ readData.fistBookInfo.isbn }}</p>
+            <p>出版社：{{ readData.lastBookInfo.publisher }}</p>
+            <p>ISBN：{{ readData.lastBookInfo.isbn }}</p>
             <!-- <p>索书号：{{ readData.lastBookInfo.callNo }}</p> -->
             <p>借阅日期： {{ readData.lastBookInfo.dueDate }}</p>
           </div>
@@ -132,7 +155,7 @@
             <!-- <h4>看看我什么时间在图书馆呢？</h4> -->
             <p>
               <b>{{ year }}</b
-              >年，我在<b>{{ weekName }}</b
+              >年我在<b>{{ weekName }}</b
               >借书最多
             </p>
           </div>
@@ -144,17 +167,17 @@
       <!-- p8 -->
       <div class="section p4_2">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
-        <div class="content">
+        <!-- <div class="content">
           <p>即使读书不会给你带来直接的财富</p>
           <p>但是可以使你的内心富足</p>
-        </div>
+        </div> -->
       </div>
       <!-- p9 -->
       <div class="section p5 pieChart" v-if="showHistory">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
           <p>
-            <b>{{ year }}</b> 年，这些充满知识的书籍
+            <b>{{ year }}</b> 年这些充满知识的书籍
           </p>
           <!-- <p>
             我到馆借阅<b>{{ readData.borrowedTotal }}</b
@@ -173,22 +196,23 @@
             >页
           </p>
           <p>
-            让我人生的宽度增加了<b>{{ readData.thickCount }}cm</b>
+            让我人生的宽度增加了<b>{{ readData.thickCount }}</b
+            >厘米
           </p>
-          <p class="desc">腹有诗书气自华，你就是你读的书</p>
+          <!-- <p class="desc">腹有诗书气自华，你就是你读的书</p> -->
         </div>
       </div>
       <!-- p10 -->
       <div class="section p6" v-if="showHistory">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
-          <h4>我的阅读取向</h4>
+          <p style="margin: 20px">我的阅读取向</p>
           <!-- chartchart  -->
           <!-- <dv-charts ref="pieChartRef" :option="pieOption" /> -->
           <div class="chart_ref" ref="pieChartRef"></div>
-          <p class="desc">
+          <!-- <p class="desc">
             一本书像一艘船，带领我们从狭隘的地方，驶向生活的无限广阔的海洋。（海伦·凯勒）
-          </p>
+          </p> -->
         </div>
       </div>
       <!-- p11 -->
@@ -209,11 +233,9 @@
           <!-- 悦读趣味：我是一个XX家 -->
           <p>
             <b>{{ year }}</b
-            >年最爱的书：
+            >年我最爱的书
           </p>
-          <h4>
-            <b>{{ readData.p7BookInfo.title }}</b>
-          </h4>
+          <h4>《{{ readData.p7BookInfo.title }}》</h4>
           <!-- <p>作者：{{ readData.p7BookInfo.author }}</p> -->
           <!-- <p>索书号：{{ readData.p7BookInfo.callNo }}</p> -->
           <p>责任者：{{ readData.p7BookInfo.author }}</p>
@@ -230,12 +252,12 @@
       <div class="section p8">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <div class="content">
-          <h4 style="margin-bottom: 30px">图书推荐</h4>
+          <p style="margin-bottom: 10px">图书推荐</p>
           <div>
-            <b>{{ readData.printout.bookNames }}</b>
+            <h4 class="theme">《{{ readData.printout.bookNames }}》</h4>
           </div>
 
-          <p class="desc">奇文共欣赏，疑义相与析。（陶渊明）</p>
+          <!-- <p class="desc">奇文共欣赏，疑义相与析。（陶渊明）</p> -->
         </div>
       </div>
       <!-- p14 -->
@@ -244,13 +266,13 @@
         <div class="content">
           <p>
             <b>{{ year }}</b>
-            年，天津图书馆微信服务号，陪伴了我
+            年天津图书馆微信服务号陪伴了我
             <b>{{ readData.wechatNowDay }}</b>
             <!-- <b>191</b> -->天
           </p>
           <br />
           <div>
-            同时，也为全馆的读者推送了:
+            同时为全馆读者推送了:
             <p>
               <!-- <b>{{ readData.tipNotice }}</b> -->
               <b>76584</b>
@@ -321,7 +343,6 @@ import chartOption from "./chart/barOptions";
 import Login from "./components/Login.vue";
 
 const baseUrl = process.env.VUE_APP_BASE_API;
-
 export default {
   name: "App",
   components: {
@@ -416,6 +437,8 @@ export default {
           "#1bcee6",
         ],
       },
+      paused: true,
+      autoplay: false,
       loading: true,
       times: 30,
       readData: {
@@ -494,10 +517,33 @@ export default {
     } else {
       this.getData();
     }
-    document.title = `天津图书馆${this.year}年阅读账单`;
+    document.title = `天津图书馆${this.year}年度读者阅读报告`;
     // http.get('/wechat/historyjob!history.action?borId=TJPD00000007621&beginDate=20210101&endDate=20211231')
+    // const video = this.$refs.video;
+    // console.log(video.paused);
+    // if(video.paused) video.play();
+    // setTimeout(()=>{
+    // this.muted = false
+    // },1000)
   },
   methods: {
+    togglePlay() {
+      const video = this.$refs.video;
+      this.paused ? video.play() : video.pause();
+      this.paused = !this.paused;
+    },
+    handleAutoplay() {
+      const video = this.$refs.video;
+      if (!this.autoplay && video.paused) {
+        video.play();
+        // this.autoplay = true;
+        // this.paused = !this.paused;
+      }
+    },
+    handlePlaying() {
+      this.autoplay = true;
+      this.paused = false;
+    },
     reBuild() {
       this.$refs.fullpage.api.reBuild();
     },
@@ -687,7 +733,8 @@ export default {
   padding: 0;
 }
 button {
-  background: #ff8200;
+  /* background: #ff8200; */
+  background: #25ac6c;
   border-radius: 4px;
   box-sizing: border-box;
   padding: 10px;
@@ -703,9 +750,52 @@ button {
   transition: all 0.1s;
   font-size: 10px;
   outline: none;
-  border-color: #ff8200;
+  /* border-color: #ff8200; */
+  border-color: #25ac6c;
   color: #ffffff;
   font-weight: 500;
+}
+
+.music_icon {
+  fill: #25ac6c;
+  position: fixed;
+  z-index: 9;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  width: 30px;
+  height: 30px;
+}
+
+.playing {
+  animation: rotate 3s infinite linear;
+}
+
+.music_icon::after {
+  /* content:'';
+  display: block;
+  position: absolute;
+  z-index: 2;
+  width: 40px;
+  height: 2px;
+  left: 15px;
+  background: #333;
+  bottom: 50%; */
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.video {
+  position: fixed;
+  z-index: -10;
+  visibility: hidden;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
@@ -719,7 +809,7 @@ button {
   display: flex;
   flex-direction: column;
   background-size: 100% 100%;
-  background-size: cover;
+  /* background-size: cover; */
   position: relative;
   flex: 1;
 }
@@ -728,12 +818,13 @@ h3 {
   color: #333;
 }
 h4 {
-  font-size: 18px;
-  color: #333;
+  font-size: 16px;
+  color: #000;
 }
 h5 {
-  font-size: 14px;
+  font-size: 16px;
   color: #333;
+  font-weight: normal;
 }
 
 .p1 {
@@ -826,16 +917,36 @@ h5 {
 }
 
 .content b {
-  font-size: 24px;
-  color: #ff8200;
+  /* font-size: 24px; */
+  /* color: #ff8200; */
+  font-weight: normal;
+  color: #25ac6c;
+  line-height: 1.5;
 }
+
+.content .bold {
+  /* font-size: 24px; */
+  /* color: #ff8200; */
+  font-weight: 600;
+  color: #25ac6c;
+}
+
+.theme {
+  color: #25ac6c;
+}
+/* test */
+/* .p8 .content b,
+.p9 .content b,
+.p10 .content b {
+  color: #ff8200;
+} */
 
 .p1_5 .content > div:first-child {
   text-align: left;
 }
 .p1_5 .line2 {
   margin-top: 20px;
-  text-align: right;
+  /* text-align: right; */
 }
 
 .desc {
@@ -856,7 +967,7 @@ h5 {
 .p2 .content > div {
   text-align: left;
   padding-bottom: 30px;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.75;
 }
 

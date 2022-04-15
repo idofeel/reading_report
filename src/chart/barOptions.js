@@ -38,11 +38,12 @@
 
 const option = {
   grid: {
-    top: 0,
+    top: 10,
     left: 10,
     right: 10,
     bottom: 30,
   },
+  color: ["#25ac6c"],
   xAxis: {
     type: "category",
     data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
@@ -58,7 +59,8 @@ const option = {
   series: [
     {
       data: [],
-      type: "bar",
+      type: "line",
+      smooth: true,
     },
   ],
 };
