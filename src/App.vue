@@ -45,7 +45,11 @@
               <b>{{ year }}</b
               >年度个人阅读账单
             </h4> -->
-          <button v-show="!loading" @click="nexPage" class="open">开启</button>
+          <div class="open_btn">
+            <button v-show="!loading" @click="nexPage" class="open">
+              开启
+            </button>
+          </div>
           <!-- <div class="title">天津图书馆</div> -->
         </div>
       </div>
@@ -98,7 +102,7 @@
         </div>
       </div>
       <!--p4 -->
-      <div class="section p4_1">
+      <div class="section p4_1" v-if="false">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <!-- <div class="content">
           <p>生活的一切不解与疑惑</p>
@@ -121,7 +125,7 @@
             <p>ISBN：{{ readData.fistBookInfo.isbn }}</p>
 
             <!-- <p>索书号：{{ readData.fistBookInfo.callNo }}</p> -->
-            <p>借阅日期: {{ readData.fistBookInfo.dueDate }}</p>
+            <p>借阅日期：{{ readData.fistBookInfo.dueDate }}</p>
           </div>
 
           <div>
@@ -139,7 +143,7 @@
         </div>
       </div>
       <!-- p6 -->
-      <div class="section p6_1">
+      <div class="section p6_1" v-if="false">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <!-- <div class="content">
           <p>一半诗意，一半烟火</p>
@@ -165,7 +169,7 @@
         </div>
       </div>
       <!-- p8 -->
-      <div class="section p4_2">
+      <div class="section p4_2" v-if="false">
         <!-- <img :src="require('@/assets/logo.png')" class="logo" alt="" /> -->
         <!-- <div class="content">
           <p>即使读书不会给你带来直接的财富</p>
@@ -196,7 +200,7 @@
             >页
           </p>
           <p>
-            让我人生的宽度增加了<b>{{ readData.thickCount }}</b
+            让我的人生宽度增加了<b>{{ readData.thickCount }}</b
             >厘米
           </p>
           <!-- <p class="desc">腹有诗书气自华，你就是你读的书</p> -->
@@ -241,7 +245,7 @@
           <p>责任者：{{ readData.p7BookInfo.author }}</p>
           <p>出版社：{{ readData.p7BookInfo.publisher }}</p>
           <p>ISBN：{{ readData.p7BookInfo.isbn }}</p>
-          <p>借阅日期:{{ readData.p7BookInfo.dueDate }}</p>
+          <p>借阅日期：{{ readData.p7BookInfo.dueDate }}</p>
           <p>
             这本书，我看了<b>{{ readData.p7BookInfo.week }}</b
             >天
@@ -734,7 +738,7 @@ export default {
 }
 button {
   /* background: #ff8200; */
-  background: #25ac6c;
+  background: #00837d;
   border-radius: 4px;
   box-sizing: border-box;
   padding: 10px;
@@ -751,13 +755,13 @@ button {
   font-size: 10px;
   outline: none;
   /* border-color: #ff8200; */
-  border-color: #25ac6c;
+  border-color: #00837d;
   color: #ffffff;
   font-weight: 500;
 }
 
 .music_icon {
-  fill: #25ac6c;
+  fill: #00837d;
   position: fixed;
   z-index: 9;
   right: 0;
@@ -837,47 +841,47 @@ h5 {
   background-image: url("./assets/p3.jpeg");
 }
 .p4_1 {
-  background-image: url("./assets/p4.jpeg");
+  /* background-image: url("./assets/p4.jpeg"); */
 }
 
 .p2 {
-  background-image: url("./assets/p5.jpeg");
+  background-image: url("./assets/p4.jpeg");
 }
 
 .p6_1 {
-  background-image: url("./assets/p6.jpeg");
+  /* background-image: url("./assets/p6.jpeg"); */
 }
 
 .p4 {
-  background-image: url("./assets/p7.jpeg");
+  background-image: url("./assets/p5.jpeg");
 }
 
 .p4_2 {
-  background-image: url("./assets/p8.jpeg");
+  /* background-image: url("./assets/p8.jpeg"); */
 }
 
 .p5 {
-  background-image: url("./assets/p9.jpeg");
+  background-image: url("./assets/p6.jpeg");
 }
 .p6 {
-  background-image: url("./assets/p10.jpeg");
+  background-image: url("./assets/p7.jpeg");
 }
 
 .p11_1 {
-  background-image: url("./assets/p11.jpeg");
+  background-image: url("./assets/p8.jpeg");
 }
 
 .p7 {
-  background-image: url("./assets/p12.jpeg");
+  background-image: url("./assets/p9.jpeg");
 }
 .p8 {
-  background-image: url("./assets/p13.jpeg");
+  background-image: url("./assets/p10.jpeg");
 }
 .p9 {
-  background-image: url("./assets/p14.jpeg");
+  background-image: url("./assets/p11.jpeg");
 }
 .p10 {
-  background-image: url("./assets/p15.jpeg");
+  background-image: url("./assets/p12.jpeg");
 }
 
 /* .p15_1 {
@@ -893,8 +897,15 @@ h5 {
   height: 200px;
 }
 
+.open_btn {
+  position: fixed;
+  bottom: 12%;
+  width: 100%;
+  left: 0;
+}
 .open {
   margin: 20px 0;
+  font-size: 18px;
 }
 
 .content {
@@ -920,7 +931,7 @@ h5 {
   /* font-size: 24px; */
   /* color: #ff8200; */
   font-weight: normal;
-  color: #25ac6c;
+  color: #00837d;
   line-height: 1.5;
 }
 
@@ -928,11 +939,11 @@ h5 {
   /* font-size: 24px; */
   /* color: #ff8200; */
   font-weight: 600;
-  color: #25ac6c;
+  color: #00837d;
 }
 
 .theme {
-  color: #25ac6c;
+  color: #00837d;
 }
 /* test */
 /* .p8 .content b,

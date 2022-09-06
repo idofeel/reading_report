@@ -6,7 +6,7 @@ const pieOpt = {
     bottom: 0,
   },
   color: [
-    "#25ac6c",
+    "#00837d",
     "#f47b38",
     "#27d8d8",
     "#387ff2",

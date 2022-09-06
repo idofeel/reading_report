@@ -43,7 +43,7 @@ const option = {
     right: 10,
     bottom: 30,
   },
-  color: ["#25ac6c"],
+  color: ["#00837d"],
   xAxis: {
     type: "category",
     data: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
